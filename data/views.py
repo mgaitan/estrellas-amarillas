@@ -16,8 +16,13 @@ def alta_siniestro(request):
 			formset = VictimaFormSet(request.POST, request.FILES, instance=siniestro)
 			if formset.is_valid():
 				formset.save()
-				messages.info(request, 'gracias por tu ayuda!')
-			return redirect('home') 
+				messages.info(request, 'Su información ha sido registrada. ¡Gracias por su ayuda!')
+				return redirect('home') 
+			else:
+				messages.warning(request, 'Hay errores en la carga. Por favor, corrijalos')
+				siniestro.delete()
+		else:
+			messages.warning(request, 'Hay errores en la carga. Por favor, corrijalos')
 	return render(request, 'data/form.html', {'form': form, 'titulo': 'Reportar Siniestro', 'formset': formset})
 
 
