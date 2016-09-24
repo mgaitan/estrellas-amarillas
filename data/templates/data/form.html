@@ -1,9 +1,13 @@
-{% extends "site_base.html" %}
+s{% extends "site_base.html" %}
 {% load bootstrap %}
+{% load staticfiles %}
+{% block script %}
+{% endblock %}
+
 
  {% block body %}
 
- 
+
  
 <h1>{{ titulo }}</h1>
 
@@ -11,6 +15,20 @@
 {% csrf_token %}
 
 {{ form|bootstrap }}
+
+
+           <h2>Victimas</h2>
+                 {% for form in formset.forms %}
+                  <div class="victimas">
+                   
+                    <div id="{{ form.prefix }}-row">
+                    	{{ form|bootstrap }}   
+                    </div>
+                    </div>
+                    {% endfor %}
+                
+                {{ formset.management_form }}
+
 
 <input type="submit" name="Guardar">
 

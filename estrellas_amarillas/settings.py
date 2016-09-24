@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     
     'data', 
     
+    'bootstrap3_datepicker',
     'geoposition',
     'account',
     'pinax_theme_bootstrap',

@@ -1,17 +1,24 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from .models import Siniestro
-from .forms import SiniestroForm, VictimaForm
+from .forms import SiniestroForm, VictimaForm, VictimaFormSet
+
 
 # Create your views here.
 
 def alta_siniestro(request):
 	form = SiniestroForm()
+	formset = VictimaFormSet()
 	if request.method == 'POST':
 		form = SiniestroForm(request.POST)
 		if form.is_valid():
 			siniestro = form.save()
-			return redirect('alta-victima', id_siniestro=siniestro.id) 
-	return render(request, 'data/form.html', {'form': form, 'titulo': 'Reportar Siniestro'})
+			formset = VictimaFormSet(request.POST, request.FILES, instance=siniestro)
+			if formset.is_valid():
+				formset.save()
+				messages.info(request, 'gracias por tu ayuda!')
+			return redirect('alta-siniestro') 
+	return render(request, 'data/form.html', {'form': form, 'titulo': 'Reportar Siniestro', 'formset': formset})
 
 
 def alta_victima(request, id_siniestro):
