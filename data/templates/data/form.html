@@ -1,0 +1,20 @@
+{% extends "site_base.html" %}
+{% load bootstrap %}
+
+ {% block body %}
+
+ 
+ 
+<h1>{{ titulo }}</h1>
+
+<form method='POST' role='form'>
+{% csrf_token %}
+
+{{ form|bootstrap }}
+
+<input type="submit" name="Guardar">
+
+</form>
+
+
+ {% endblock %}

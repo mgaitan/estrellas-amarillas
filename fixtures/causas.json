@@ -1,0 +1,30 @@
+[
+{
+  "model": "data.causa",
+  "pk": 1,
+  "fields": {
+    "causa": "Alcohol"
+  }
+},
+{
+  "model": "data.causa",
+  "pk": 2,
+  "fields": {
+    "causa": "Exceso de Velocidad"
+  }
+},
+{
+  "model": "data.causa",
+  "pk": 3,
+  "fields": {
+    "causa": "Distracci\u00f3n"
+  }
+},
+{
+  "model": "data.causa",
+  "pk": 4,
+  "fields": {
+    "causa": "Otros"
+  }
+}
+]
