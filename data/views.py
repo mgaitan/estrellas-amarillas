@@ -17,7 +17,7 @@ def alta_siniestro(request):
 			if formset.is_valid():
 				formset.save()
 				messages.info(request, 'gracias por tu ayuda!')
-			return redirect('alta-siniestro') 
+			return redirect('home') 
 	return render(request, 'data/form.html', {'form': form, 'titulo': 'Reportar Siniestro', 'formset': formset})
 
 
