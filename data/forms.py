@@ -21,4 +21,4 @@ class VictimaForm(forms.ModelForm):
 				  'lugar_residencia', 'genero', 'fecha_nacimiento']
 
 
-VictimaFormSet = inlineformset_factory(Siniestro, Victima, form=VictimaForm)
+VictimaFormSet = inlineformset_factory(Siniestro, Victima, form=VictimaForm, extra=1)
