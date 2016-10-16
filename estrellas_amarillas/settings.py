@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'account',
     'pinax_theme_bootstrap',
     'bootstrapform',
+    'bootstrap3_datetime' ,
     
 ]
 

@@ -3,11 +3,13 @@ from django import forms
 #from bootstrap3_datepicker.widgets import DatePickerInput
 from django.forms import inlineformset_factory
 from .models import Siniestro, Victima
+from bootstrap3_datetime.widgets import DateTimePicker
 
 
 class SiniestroForm(forms.ModelForm):
-
-	#fecha = forms.DateField(widget=DatePickerInput())
+	fecha =forms.DateField(
+		widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+										"pickTime": False}))
 
 	class Meta:
 		model = Siniestro
@@ -15,6 +17,13 @@ class SiniestroForm(forms.ModelForm):
 
 
 class VictimaForm(forms.ModelForm):
+	fecha_nacimiento = forms.DateField(
+		widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+										"pickTime": False}))
+	fecha =forms.DateField(
+		widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+										"pickTime": False}))
+
 	class Meta:
 		model = Victima
 		fields = ['nombres', 'apellido', 'fecha', 'dni', 'nacionalidad', 
