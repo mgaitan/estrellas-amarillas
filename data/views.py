@@ -17,7 +17,7 @@ def alta_siniestro(request):
 			if formset.is_valid():
 				formset.save()
 				messages.info(request, 'Su información ha sido registrada. ¡Gracias por su ayuda!')
-				return redirect('registro/') 
+				return redirect('/registro') 
 			else:
 				messages.warning(request, 'Hay errores en la carga. Por favor, corrijalos')
 				siniestro.delete()
@@ -40,7 +40,7 @@ def alta_victima(request, id_siniestro):
 
 
 def tablero(request):
-	siniestros = Siniestro.objects.all()
+	siniestros = Siniestro.objects.all().order_by('-id')
 	victimas = Victima.objects.all()
 	if request.method == 'POST':
 		return redirect('registro/')
