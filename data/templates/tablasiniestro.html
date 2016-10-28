@@ -1,0 +1,45 @@
+{% extends "site_base.html" %}
+   {% block content %}
+<form action="" method="post">
+<h1>Accidentes Registrados</h1>
+
+<TABLE BORDER=1 WIDTH=500 class="table table-stripped">
+
+<TR>
+<TD colspan=8><b>Siniestro</TD>
+</TR>
+<TR>
+<TD><b>causa_principal<b/></TD><TD><b>fecha<b/></TD><TD><b>hora<b/><TD><b>lugar<b/><TD><b>provincia<b/><TD><b>posicion<b/></TD>
+</TR>
+{% for siniestro in siniestros %}
+<TR>
+<TD>{{siniestro.causa_principal}}</TD><TD>{{siniestro.fecha}}</TD><TD>{{siniestro.hora}}</TD><TD>{{siniestro.lugar}}</TD><TD>{{siniestro.get_provincia_display}}</TD><TD>{{siniestro.posicion}}</TD>
+<TR>
+<TD colspan=8><b>Victima</TD>
+</TR>
+<TR>
+<TD><b>apellido<b/></TD><TD><b>nombre<b/><TD><b>fecha<b/><TD><b>dni<b/><TD><b>nacionalidad<b/></TD><TD><b>lugar_residencia<b/></TD><TD><b>genero<b/></TD><TD><b>fecha_nacimiento<b/>
+</TR>
+</TR>
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+{% csrf_token %}
+<br>
+<br><input type="submit" value="registro nuevo">
+</input>
+
+{% endblock %}
+
+

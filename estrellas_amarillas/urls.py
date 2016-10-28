@@ -15,12 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from data.views import alta_siniestro, alta_victima
+from data.views import alta_siniestro, alta_victima, tablero
 
 
 urlpatterns = [
-    url(r'^$', alta_siniestro, name='home'),
+    url(r'^registro/', alta_siniestro, name='registro'),
     url(r'^siniestro/(?P<id_siniestro>[0-9]+)/alta-victima', alta_victima, name='alta-victima'),
+    url(r'^$',tablero, name='home'),
     url(r'^admin/', admin.site.urls),
     url(r'^account/', include("account.urls")),
 ]
+
