@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Siniestro
+from .models import Siniestro, Victima
 from .forms import SiniestroForm, VictimaForm, VictimaFormSet
 
 
@@ -17,7 +17,7 @@ def alta_siniestro(request):
 			if formset.is_valid():
 				formset.save()
 				messages.info(request, 'Su información ha sido registrada. ¡Gracias por su ayuda!')
-				return redirect('home') 
+				return redirect('/registro') 
 			else:
 				messages.warning(request, 'Hay errores en la carga. Por favor, corrijalos')
 				siniestro.delete()
@@ -37,3 +37,14 @@ def alta_victima(request, id_siniestro):
 			victima.save()
 			return redirect('alta-victima', id_siniestro=siniestro.id) 
 	return render(request, 'data/form.html', {'form': form, 'titulo': 'Reportar Victima', 'siniestro': siniestro})
+
+
+def tablero(request):
+	siniestros = Siniestro.objects.all().order_by('-id')
+	victimas = Victima.objects.all()
+	if request.method == 'POST':
+		return redirect('registro/')
+	return render(request, 'tablasiniestro.html',
+		{'victimas': victimas,
+		'siniestros': siniestros,
+		}) 
