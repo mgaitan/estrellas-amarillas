@@ -1,0 +1,29 @@
+{% extends "site_base.html" %}
+{% load leaflet_tags %}
+{% load geojson_tags %}
+{% load bootstrap %}
+{% load staticfiles %}
+{% block extra_head %}
+    {{ block.super }}
+	{% leaflet_js %}
+    {% leaflet_css %}
+{% endblock %}
+
+
+ {% block body %}
+
+{% leaflet_map "yourmap" callback="window.map_init_basic" %}
+
+
+<script type="text/javascript">
+
+function map_init_basic (map, options){
+
+	var layer = L.geoJson();
+	map.addLayer(layer);
+	$.getJSON("{% url 'geojson' %}", function (data) {
+	    layer.addData(data);
+	});
+ }
+</script>
+{% endblock %}
