@@ -10,4 +10,3 @@ django-formtools==1.0
 Pillow==3.3.1
 pinax-theme-bootstrap==7.10.2
 pytz==2016.6.1
-

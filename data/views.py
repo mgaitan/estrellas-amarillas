@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.contrib import messages
+
 from formtools.wizard.views import SessionWizardView
 from .models import Siniestro, Victima
 from .forms import SiniestroForm, VictimaForm, VictimaFormSet
@@ -17,7 +18,7 @@ class SiniestroWizard(SessionWizardView):
             step = self.steps.current
         if step == "1":
             prev_data = self.get_cleaned_data_for_step('0')
-            cnt = prev_data['cantidad_de_victimas_fatales']     #use appropriate key as per your form
+            cnt = prev_data['cantidad_de_victimas_fatales']
             kwargs = self.get_form_kwargs(step)
             kwargs.update({
                 'data': data,
@@ -39,38 +40,17 @@ class SiniestroWizard(SessionWizardView):
         return redirect('home')
 
 
-
-def alta_siniestro(request):
-    form = SiniestroForm()
-    formset = VictimaFormSet()
-    if request.method == 'POST':
-        form = SiniestroForm(request.POST)
-        if form.is_valid():
-
-            formset = VictimaFormSet(request.POST, request.FILES, instance=siniestro, prefix='victimas')
-            if formset.is_valid():
-                formset.save()
-                messages.info(request, 'Su información ha sido registrada. ¡Gracias por su ayuda!')
-                return redirect('home')
-            else:
-                messages.warning(request, 'Hay errores en la carga. Por favor, corrijalos')
-                siniestro.delete()
-        else:
-            messages.warning(request, 'Hay errores en la carga. Por favor, corrijalos')
-    return render(request, 'data/form.html', {'form': form, 'titulo': 'Reportar Siniestro', 'formset': formset})
-
-
-def alta_victima(request, id_siniestro):
-    siniestro = get_object_or_404(Siniestro, id=id_siniestro)
-    form = VictimaForm()
-    if request.method == 'POST':
-        form = VictimaForm(request.POST)
-        if form.is_valid():
-            victima = form.save(commit=False)
-            victima.siniestro = siniestro
-            victima.save()
-            return redirect('alta-victima', id_siniestro=siniestro.id)
-    return render(request, 'data/form.html', {'form': form, 'titulo': 'Reportar Victima', 'siniestro': siniestro})
-
 def Map(request):
     return render(request, 'data/map.html',)
+
+
+def tablero(request):
+    siniestros = Siniestro.objects.all().order_by('-id')
+    victimas = Victima.objects.all()
+    if request.method == 'POST':
+        return redirect('registro/')
+    return render(request, 'tablasiniestro.html',
+        {'victimas': victimas,
+        'siniestros': siniestros,
+        })
+

@@ -11,7 +11,6 @@ from geoposition.fields import GeopositionField
 class Siniestro(models.Model):
     STATUS = Choices('a_confirmar', 'confirmado', 'reportado')
     status = StatusField()
-
     causa_principal = models.ForeignKey('Causa')
     fecha = models.DateField()
     hora = models.TimeField(null=True)
@@ -26,6 +25,9 @@ class Siniestro(models.Model):
     def geom(self):
         return {'type': 'Point', 'coordinates': [self.posicion.latitude, self.posicion.longitude]}
 
+    def __str__(self):
+        return "{} ({})".format(self.causa_principal,self.get_provincia_display())
+
 
 class Causa(models.Model):
     causa = models.CharField(max_length=50)
@@ -36,7 +38,7 @@ class Causa(models.Model):
 
 class Victima(models.Model):
     GENEROS = Choices('masculino', 'femenino', 'otro')
-    siniestro = models.ForeignKey('Siniestro')
+    siniestro = models.ForeignKey('Siniestro', related_name='victimas')
     apellido = models.CharField(max_length=50)
     nombres = models.CharField(max_length=50)
     fecha = models.DateField(help_text='En ocasiones, una victima puede fallecer dias despues del siniestro')
@@ -47,6 +49,9 @@ class Victima(models.Model):
     fecha_nacimiento = models.DateField(null=True)
     fotos = models.ManyToManyField('ReferenciaPrensa')
 
+    def __str__(self):
+        return '{} ({}) ({}) ({}) '. format(self.siniestro,self.nombres, self.apellido, self.genero)
+
 
 class ReferenciaPrensa(models.Model):
     url = models.URLField(unique=True)
@@ -54,5 +59,3 @@ class ReferenciaPrensa(models.Model):
 
 class Foto(models.Model):
     archivo = models.ImageField()
-
-
