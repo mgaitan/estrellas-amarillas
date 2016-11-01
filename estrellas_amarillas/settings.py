@@ -38,16 +38,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',    
-    
-    'data', 
-    
-    'bootstrap3_datepicker',
+    'django.contrib.sites',
+    'djgeojson',
+    'leaflet',
+
+
+    'formtools',
+    'data',
+
+    'bootstrap_datepicker',
     'geoposition',
     'account',
     'pinax_theme_bootstrap',
     'bootstrapform',
-    
+
 ]
 
 MIDDLEWARE = [
@@ -63,6 +67,16 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'estrellas_amarillas.urls'
 
 GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyDgFspCNqgbYn1ceUc5xGYWbd6wLIwqD7w'
+
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (6.0, 45.0),
+    'DEFAULT_ZOOM': 16,
+    'MIN_ZOOM': 3,
+    'MAX_ZOOM': 18,
+    'ATTRIBUTION_PREFIX': ''
+}
+
+
 
 TEMPLATES = [
     {

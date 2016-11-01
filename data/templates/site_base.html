@@ -22,21 +22,3 @@
 {% endblock %}
 
 
-{% block footer	 %}
-{{ block.super }}
-{{ form.media }}
-
-
-<script type="text/javascript" src="//cdn.rawgit.com/elo80ka/django-dynamic-formset/master/src/jquery.formset.js"></script>
-
-<script type="text/javascript">
-    $(function() {
-        $('div.victimas').formset({});
-    })
-</script>
-<style type="text/css">
-    .delete-row {
-        margin-left:5px;
-    }
-</style>
-{% endblock %}

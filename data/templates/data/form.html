@@ -1,38 +1,62 @@
-s{% extends "site_base.html" %}
+{% extends "site_base.html" %}
 {% load bootstrap %}
 {% load staticfiles %}
+{% block styles %}
+	{{ block.super }}
+
+	<style type="text/css">
+	.row-striped {padding: 1em;}
+	.row-striped:nth-of-type(odd){
+  		background-color: #efefef;
+	}
+
+	.row-striped:nth-of-type(even){
+	  background-color: #ffffff;
+	}
+	</style>
+
+	<link rel="stylesheet" href="{% static 'contrib/font-awesome.min.css' %}">
+
+{% endblock styles %}
 {% block script %}
 {% endblock %}
 
 
  {% block body %}
 
+<h1>Reportar un siniestro</h1>
 
- 
-<h1>{{ titulo }}</h1>
+{% if wizard.steps.prev %}
+<h3>Ingresar víctima/s</h3>
+{% endif %}
 
 <form method='POST' role='form'>
 {% csrf_token %}
+{{ wizard.management_form }}
 
-{{ form|bootstrap }}
+{% if wizard.form.forms %}
+    {{ wizard.form.management_form }}
+    {% for form in wizard.form.forms %}
+    	<div class="row-striped">
+        {{ form|bootstrap }}
+        </div>
+    {% endfor %}
+{% else %}
+    {{ wizard.form|bootstrap }}
+{% endif %}
 
-
-           <h2>Victimas</h2>
-                 {% for form in formset.forms %}
-                  <div class="victimas">
-                   
-                    <div id="{{ form.prefix }}-row">
-                    	{{ form|bootstrap }}   
-                    </div>
-                    </div>
-                    {% endfor %}
-                
-                {{ formset.management_form }}
-
-
-<input type="submit" name="Guardar">
+{% if not wizard.steps.prev %}
+    <input class="btn" type="submit" name="Guardar" value="siguiente >">
+{% else %}
+    <input class="btn btn-success" type="submit" name="finalizar" value="Finalizar">
+{% endif %}
 
 </form>
 
-
  {% endblock %}
+
+ {% block footer %}
+{{ block.super }}
+{{ form.media }}
+
+{% endblock %}
