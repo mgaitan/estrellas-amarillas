@@ -68,11 +68,11 @@ ROOT_URLCONF = 'estrellas_amarillas.urls'
 GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyDgFspCNqgbYn1ceUc5xGYWbd6wLIwqD7w'
 
 LEAFLET_CONFIG = {
-    'DEFAULT_CENTER': (6.0, 45.0),
-    'DEFAULT_ZOOM': 16,
-    'MIN_ZOOM': 3,
+    'DEFAULT_CENTER': (-42, -60),
+    'DEFAULT_ZOOM': 5,
+    'MIN_ZOOM': 1,
     'MAX_ZOOM': 18,
-    'ATTRIBUTION_PREFIX': ''
+    'ATTRIBUTION_PREFIX': 'Desarrollado por ITS Córdoba - Villa del Libertador'
 }
 
 

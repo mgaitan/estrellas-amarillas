@@ -23,10 +23,16 @@ class Siniestro(models.Model):
 
     @property
     def geom(self):
-        return {'type': 'Point', 'coordinates': [self.posicion.latitude, self.posicion.longitude]}
+        return {
+            'type': 'Point',
+            'coordinates': [
+                float(self.posicion.longitude),
+                float(self.posicion.latitude)
+            ]
+        }
 
     def __str__(self):
-        return "{} ({})".format(self.causa_principal,self.get_provincia_display())
+        return "{} ({})".format(self.causa_principal, self.get_provincia_display())
 
 
 class Causa(models.Model):

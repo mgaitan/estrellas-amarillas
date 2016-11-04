@@ -7,12 +7,26 @@
     {{ block.super }}
 	{% leaflet_js %}
     {% leaflet_css %}
+
+    <script type="text/javascript" src="https://cdn.rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.min.js"></script>
+
+
+
+    <style type="text/css">
+    .leaflet-container {  /* all maps */
+        width:  100%;
+        height: 960px;
+    }
+
+
+
+    </style>
 {% endblock %}
 
 
  {% block body %}
 
-{% leaflet_map "yourmap" callback="window.map_init_basic" %}
+{% leaflet_map "estrellas_amarillas" callback="window.map_init_basic" %}
 
 
 <script type="text/javascript">
