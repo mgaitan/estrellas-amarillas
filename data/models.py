@@ -4,7 +4,7 @@ from localflavor.ar.ar_provinces import PROVINCE_CHOICES
 from model_utils.fields import StatusField
 from model_utils import Choices
 from geoposition.fields import GeopositionField
-
+from datetime import datetime
 
 # Create your models here.
 
@@ -43,6 +43,9 @@ class Victima(models.Model):
     genero = models.CharField(max_length=30, choices=GENEROS)
     fecha_nacimiento = models.DateField(null=True)
     fotos = models.ManyToManyField('ReferenciaPrensa')
+
+    def edad(self):
+        return int((datetime.now().date() - self.fecha_nacimiento).days / 365.25)
 
     def __str__(self):
         return '{} ({}) ({}) ({}) '. format(self.siniestro,self.nombres, self.apellido, self.genero)
