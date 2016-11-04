@@ -1,6 +1,12 @@
 {% extends "site_base.html" %}
    {% block content %}
+
 <form action="" method="post">
+{% csrf_token %}
+   {{ form }}
+<input type="submit" name="enviar" value="buscar " class="btn"> </input>
+</form>
+
 <h1>Accidentes Registrados</h1>
 
 <TABLE BORDER=1 WIDTH=500 class="table table-stripped">

@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Siniestro, Victima
-from .forms import SiniestroForm, VictimaForm, VictimaFormSet
+from .forms import SiniestroForm, VictimaForm, VictimaFormSet, Buscador
 
-
+ 
 # Create your views here.
 
 def alta_siniestro(request):
@@ -41,10 +41,16 @@ def alta_victima(request, id_siniestro):
 
 def tablero(request):
 	siniestros = Siniestro.objects.all().order_by('-id')
-	victimas = Victima.objects.all()
 	if request.method == 'POST':
-		return redirect('registro/')
+		form = Buscador(request.POST)
+		if form.is_valid():
+			
+			siniestros = Siniestro.objects.filter(victimas__apellido__icontains=form.cleaned_data['busqueda'])
+	else:
+		form = Buscador()
 	return render(request, 'tablasiniestro.html',
-		{'victimas': victimas,
+		{
 		'siniestros': siniestros,
+		'form': form,
 		}) 
+
