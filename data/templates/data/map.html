@@ -8,9 +8,6 @@
 	{% leaflet_js %}
     {% leaflet_css %}
 
-    <script type="text/javascript" src="https://cdn.rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.min.js"></script>
-
-
 
     <style type="text/css">
     .leaflet-container {  /* all maps */
@@ -32,11 +29,19 @@
 <script type="text/javascript">
 
 function map_init_basic (map, options){
-
-	var layer = L.geoJson();
-	map.addLayer(layer);
 	$.getJSON("{% url 'geojson' %}", function (data) {
-	    layer.addData(data);
+		layer = L.geoJson(data, {
+		     pointToLayer: function(feature, latlng) {
+                 var starIcon = L.AwesomeMarkers.icon({
+				    icon: 'star',
+				    markerColor: 'black',
+				    iconColor: 'yellow',
+				    spin: true
+				 });
+                return L.marker(latlng, {icon: starIcon});
+            }
+        });
+		map.addLayer(layer);
 	});
  }
 </script>

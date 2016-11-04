@@ -72,7 +72,14 @@ LEAFLET_CONFIG = {
     'DEFAULT_ZOOM': 5,
     'MIN_ZOOM': 1,
     'MAX_ZOOM': 18,
-    'ATTRIBUTION_PREFIX': 'Desarrollado por ITS Córdoba - Villa del Libertador'
+    'ATTRIBUTION_PREFIX': 'Desarrollado por ITS Córdoba - Villa del Libertador',
+    'PLUGINS': {
+        'awesome-markers': {
+            'css': ['https://cdn.rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.css'],
+            'js': 'https://cdn.rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.min.js',
+            'auto-include': True,
+        },
+    }
 }
 
 

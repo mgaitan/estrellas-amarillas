@@ -6,11 +6,11 @@ from data.views import Map, SiniestroWizard, tablero
 
 
 urlpatterns = [
-    url(r'^$', tablero, name='home'),
+	url(r'^$', Map, name='map'),
+    url(r'^lista/', tablero, name='home'),
     url(r'^registro/', SiniestroWizard.as_view(), name='registro'),
     url(r'^data.geojson$', GeoJSONLayerView.as_view(model=Siniestro), name='geojson'),
     url(r'^admin/', admin.site.urls),
-    url(r'^map/', Map, name='map'),
     url(r'^account/', include("account.urls")),
 ]
 
