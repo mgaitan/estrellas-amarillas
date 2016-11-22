@@ -1,6 +1,6 @@
 from django.db import models
 
-from localflavor.ar.ar_provinces import PROVINCE_CHOICES 
+from localflavor.ar.ar_provinces import PROVINCE_CHOICES
 from model_utils.fields import StatusField
 from model_utils import Choices
 from geoposition.fields import GeopositionField
@@ -21,8 +21,19 @@ class Siniestro(models.Model):
     referencias_prensa = models.ManyToManyField('ReferenciaPrensa')
     cargado_por = models.ForeignKey('auth.User', editable=False, null=True)
 
+    @property
+    def geom(self):
+        return {
+            'type': 'Point',
+            'coordinates': [
+                float(self.posicion.longitude),
+                float(self.posicion.latitude)
+            ]
+        }
+
     def __str__(self):
-        return "{} ({})".format(self.causa_principal,self.get_provincia_display())
+        return "{} ({})".format(self.causa_principal, self.get_provincia_display())
+
 
 class Causa(models.Model):
     causa = models.CharField(max_length=50)
@@ -53,12 +64,7 @@ class Victima(models.Model):
 
 class ReferenciaPrensa(models.Model):
     url = models.URLField(unique=True)
-    
+
 
 class Foto(models.Model):
     archivo = models.ImageField()
-
-
-
-
-

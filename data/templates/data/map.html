@@ -1,0 +1,48 @@
+{% extends "site_base.html" %}
+{% load leaflet_tags %}
+{% load geojson_tags %}
+{% load bootstrap %}
+{% load staticfiles %}
+{% block extra_head %}
+    {{ block.super }}
+	{% leaflet_js %}
+    {% leaflet_css %}
+
+
+    <style type="text/css">
+    .leaflet-container {  /* all maps */
+        width:  100%;
+        height: 960px;
+    }
+
+
+
+    </style>
+{% endblock %}
+
+
+ {% block body %}
+
+{% leaflet_map "estrellas_amarillas" callback="window.map_init_basic" %}
+
+
+<script type="text/javascript">
+
+function map_init_basic (map, options){
+	$.getJSON("{% url 'geojson' %}", function (data) {
+		layer = L.geoJson(data, {
+		     pointToLayer: function(feature, latlng) {
+                 var starIcon = L.AwesomeMarkers.icon({
+				    icon: 'star',
+				    markerColor: 'black',
+				    iconColor: 'yellow',
+				    spin: true
+				 });
+                return L.marker(latlng, {icon: starIcon});
+            }
+        });
+		map.addLayer(layer);
+	});
+ }
+</script>
+{% endblock %}

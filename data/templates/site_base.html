@@ -22,32 +22,16 @@
 {% endblock %}
 
 {% block nav %}
+
  		<ul class="nav navbar-nav">
-            <li><a href="http://127.0.0.1:8000/registro/">nuevo siniestro</a></li>
-            <li><a href="http://127.0.0.1:8000/lista/">tablero</a></li>
+            <li><a href="/registro/">nuevo siniestro</a></li>
+            <li><a href="/lista/">tablero</a></li>
         </ul>
 {{ block.super }}
+
+{% endblock %}
+
+{% block account_bar %}
 {% endblock %}
 
 
-{% block footer	 %}
-<!-- form media -->
-{{ block.super }}
-
-
-<script type="text/javascript" src="//cdn.rawgit.com/elo80ka/django-dynamic-formset/master/src/jquery.formset.js"></script>
-
-<script type="text/javascript">
-    $(function() {
-        $('div.victimas').formset({});
-    })
-</script>
-{% block content %}
-<style type="text/css">
-    .delete-row {
-        margin-left:5px;
-    }
-</style>
-{% endblock content %}
-
-{% endblock %}
