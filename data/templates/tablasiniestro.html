@@ -1,46 +1,44 @@
 {% extends "site_base.html" %}
 
+
 {% block body %}
+
+<form action="" method="post">
+{% csrf_token %}
+   {{ form }}
+<input type="submit" name="enviar" value="buscar " class="btn"> </input>
+</form>
 
 <h1>Accidentes Registrados</h1>
 
-<TABLE class="table table-stripped">
+<TABLE BORDER=1 WIDTH=500 class="table table-stripped">
 {% for siniestro in siniestros %}
 <TR>
- <TD colspan=8><b><h3>Siniestro</h3></TD>
+ <TD colspan=9><b><h3>Siniestro </h3></TD>
 </TR>
 <TR>
-<TD><b>Causa Principal<b/></TD><TD><b>Fecha<b/></TD><TD><b>Hora<b/><TD><b>Lugar<b/><TD><b>Provincia<b/><TD colspan=5><b>Posicion <b/></TD>
+<TD><b>Causa Principal<b/></TD><TD><b>Fecha<b/></TD><TD><b>Hora<b/><TD><b>Lugar<b/><TD><b>Provincia<b/><TD colspan=6><b>Posicion <b/></TD>
 </TR>
 
 <TR>
-<TD>{{siniestro.causa_principal}}</TD><TD>{{siniestro.fecha}}</TD><TD>{{siniestro.hora}}</TD><TD>{{siniestro.lugar}}</TD><TD>{{siniestro.get_provincia_display}}</TD><TD colspan=5>{{siniestro.posicion}}</TD>
-
+<TD>{{siniestro.causa_principal}}</TD><TD>{{siniestro.fecha}}</TD><TD>{{siniestro.hora}}</TD><TD>{{siniestro.lugar}}</TD><TD>{{siniestro.get_provincia_display}}</TD><TD colspan=6>{{siniestro.posicion}}</TD>
+	
 	<TR>
-	<TD colspan=8><b><h4>Victima</h4></TD>
+	<TD colspan=9><b><h4>Victima</h4></TD>
 	</TR>
 	<TR>
-	<TD><b>Apellido<b/></TD><TD><b>Nombre<b/><TD><b>Fecha<b/><TD><b>DNI<b/><TD><b>Nacionalidad<b/></TD><TD><b>Lugar De Residencia<b/></TD><TD><b>Genero<b/></TD><TD><b>Fecha De Nacimiento<b/>
+	<TD><b>Apellido<b/></TD><TD><b>Nombre<b/><TD><b>Fecha<b/><TD><b>DNI<b/><TD><b>Nacionalidad<b/></TD><TD><b>Lugar De Residencia<b/></TD><TD><b>Genero<b/></TD><TD><b>Fecha De Nacimiento<b/><TD><b>edad<b/></TD>
 	</TR>
 	{% for victima in siniestro.victimas.all %}
 	<TR>
-	<TD>{{victima.apellido}}</TD><TD>{{victima.nombres}}</TD><TD>{{victima.fecha}}</TD><TD>{{victima.dni}}</TD><TD>{{victima.nacionalidad}}</TD><TD>{{victima.lugar_residencia}}</TD><TD>{{victima.genero}}</TD><TD>{{victima.fecha_nacimiento}}</TD>
+	<TD>{{victima.apellido}}</TD><TD>{{victima.nombres}}</TD><TD>{{victima.fecha}}</TD><TD>{{victima.dni}}</TD><TD>{{victima.nacionalidad}}</TD><TD>{{victima.lugar_residencia}}</TD><TD>{{victima.genero}}</TD><TD>{{victima.fecha_nacimiento}}</TD><TD>{{victima.edad}}</TD>
 	</TR>
 	{% endfor %}
 </TR>
 {% endfor %}
 
-
-
-
-
-
-
-
-
-
-
 </TABLE>
+
 {% endblock %}
 
 

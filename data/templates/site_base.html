@@ -22,10 +22,13 @@
 {% endblock %}
 
 {% block nav %}
-        <ul class="nav navbar-nav">
-            <li><a href="#tab_one">One</a></li>
-            <li><a href="#tab_two">Two</a></li>
+
+ 		<ul class="nav navbar-nav">
+            <li><a href="/registro/">nuevo siniestro</a></li>
+            <li><a href="/lista/">tablero</a></li>
         </ul>
+{{ block.super }}
+
 {% endblock %}
 
 {% block account_bar %}

@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
+from django.db.models import Q
 from formtools.wizard.views import SessionWizardView
 from .models import Siniestro, Victima
-from .forms import SiniestroForm, VictimaForm, VictimaFormSet
+
+from .forms import SiniestroForm, VictimaForm, VictimaFormSet, Buscador
 from django.forms import modelformset_factory
 
-
+ 
 # Create your views here.
 
 class SiniestroWizard(SessionWizardView):
@@ -46,11 +47,17 @@ def Map(request):
 
 def tablero(request):
     siniestros = Siniestro.objects.all().order_by('-id')
-    victimas = Victima.objects.all()
     if request.method == 'POST':
-        return redirect('registro/')
+        form = Buscador(request.POST)
+        if form.is_valid():
+            busqueda=form.cleaned_data['busqueda']
+            valor=Q(victimas__apellido__icontains=busqueda)|Q(victimas__dni=busqueda)
+            siniestros = Siniestro.objects.filter(valor)
+    else:
+        form = Buscador()
     return render(request, 'tablasiniestro.html',
-        {'victimas': victimas,
+        {
         'siniestros': siniestros,
-        })
+        'form': form,
+        }) 
 
